@@ -75,3 +75,9 @@ External NBA Data
 ```
 
 Redshift could provide an alternative for workloads requiring more persistent warehouse-style analytics, higher query concurrency, or integration with additional reporting applications. The serverless S3, Glue, and Athena architecture remained appropriate for the scope of the original project.
+
+## QuickSight Dashboard
+
+Amazon QuickSight was used to visualize NBA metrics after the data was stored in S3, cataloged through AWS Glue, and queried using Athena.
+
+![NBA QuickSight Dashboard](screenshots/quicksight_dashboard.png)
