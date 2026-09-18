@@ -89,3 +89,23 @@ Redshift could provide an alternative for workloads requiring more persistent wa
 Amazon QuickSight was used to visualize NBA metrics after the data was stored in S3, cataloged through AWS Glue, and queried using Athena.
 
 ![NBA QuickSight Dashboard](screenshots/quicksight_dashboard.png)
+
+## Repository Structure
+
+```text
+aws-nba-analytics-pipeline/
+├── README.md
+├── .gitignore
+├── src/
+│   └── lambda_refresh_pipeline.py
+├── sql/
+│   └── athena_queries.sql
+└── screenshots/
+    └── quicksight_dashboard.png
+```
+
+### Files
+
+- `src/lambda_refresh_pipeline.py` — Python/boto3 Lambda workflow used to trigger AWS Glue crawlers and initiate the QuickSight dataset refresh.
+- `sql/athena_queries.sql` — Amazon Athena SQL used to join and query NBA game and team-level data.
+- `screenshots/quicksight_dashboard.png` — Screenshot of the final Amazon QuickSight analytics dashboard.
