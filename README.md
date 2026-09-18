@@ -1,4 +1,4 @@
-# aws-nba-analytics-pipeline
+# AWS NBA Analytics Pipeline
 Serverless AWS data pipeline for NBA analytics using S3, Lambda, Glue, Athena, QuickSight, Python, and SQL.
 
 ## Project Overview
@@ -29,7 +29,7 @@ For this project, the team focused primarily on two datasets:
 - **Game data** — Included game-level information and team performance statistics such as assists, points, rebounds, and other game metrics.
 - **Game information data** — Provided additional metadata used to support the analytics pipeline.
 
-The source CSV files were initially processed in Python to ensure the data was formatted consistently before being uploaded to Amazon S3.
+The team initially processed the source CSV files in Python to ensure the data was formatted consistently before being uploaded to Amazon S3.
 
 During development, the team encountered issues with the original dataset being read correctly by the pipeline. To create a reliable demonstration of incremental ingestion, the data was reduced to the most recent season and divided into multiple sections. These files were then uploaded sequentially to demonstrate how new data could move through the AWS pipeline and update downstream analytics.
 
@@ -59,7 +59,7 @@ NBA game data was stored in Amazon S3, AWS Lambda triggered Glue crawlers to upd
 
 - **Amazon S3** — Stored the NBA game and team datasets used as the source layer for the analytics pipeline.
 - **AWS Lambda** — Automated the workflow by triggering AWS Glue crawlers after new data was added to S3 and attempting to initiate the QuickSight dataset refresh.
-- **AWS Glue Crawler** — Scanned data stored in S3 and updated table metadata.
+- **AWS Glue Crawlers** — Scanned data stored in S3 and updated table metadata.
 - **AWS Glue Data Catalog** — Maintained metadata and table definitions used by Athena.
 - **Amazon Athena** — Queried and joined NBA datasets using SQL.
 - **Amazon QuickSight** — Served as the visualization layer for NBA metrics and the final analytics dashboard.
@@ -83,7 +83,7 @@ My primary contributions included:
 The project successfully demonstrated a serverless AWS analytics pipeline, but the original implementation had several areas that could be improved for a production environment.
 
 - **Broad IAM permissions** — Some roles used permissions that were wider than necessary. A production implementation should follow the principle of least privilege and restrict access to only the required services and resources.
-- **Configuration management** — AWS resource identifiers should be stored as environment variables rather than hard-coded directly in application code.
+- **Configuration management** — The original implementation included hard-coded AWS resource identifiers. In the public portfolio version, these values were replaced with environment variables to improve security and portability.
 - **Scalability and query performance** — Larger datasets could benefit from partitioning and columnar formats such as Parquet to reduce Athena scan volume and improve query performance.
 - **Pipeline automation** — Additional event-driven automation could reduce the need for manual data ingestion and make the pipeline easier to maintain.
 - **Dashboard refresh timing** — The Lambda workflow used a fixed wait period before attempting to refresh the QuickSight dataset. In some runs, the AWS Glue crawler took longer to complete, causing the automated refresh to time out and requiring a manual QuickSight refresh. A more robust implementation could monitor the Glue crawler state and trigger the QuickSight refresh only after the crawler successfully completes.
@@ -113,6 +113,10 @@ Redshift could provide an alternative for workloads requiring more persistent wa
 Amazon QuickSight was used to visualize NBA metrics after the data was stored in S3, cataloged through AWS Glue, and queried using Athena.
 
 ![NBA QuickSight Dashboard](screenshots/quicksight_dashboard.png)
+
+## Security Note
+
+This public repository contains a sanitized version of the project. AWS account IDs, dataset IDs, credentials, bucket-specific identifiers, and other account-specific configuration values have been removed or replaced with environment variables.
 
 ## Repository Structure
 
