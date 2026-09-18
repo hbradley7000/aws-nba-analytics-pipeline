@@ -1,6 +1,14 @@
 # aws-nba-analytics-pipeline
 Serverless AWS data pipeline for NBA analytics using S3, Lambda, Glue, Athena, QuickSight, Python, and SQL.
 
+## Project Overview
+
+This project was developed as a team-based cloud engineering project focused on building a serverless analytics pipeline for NBA data using Amazon Web Services.
+
+The pipeline stored NBA game data in Amazon S3, used AWS Lambda and Glue Crawlers to automate data catalog updates, queried the resulting datasets with Amazon Athena, and supported visualization through Amazon QuickSight.
+
+The project demonstrates experience with cloud-based data pipelines, Python automation, SQL querying, AWS service integration, IAM configuration, and business intelligence reporting.
+
 ## Architecture
 
 The project used a serverless AWS analytics pipeline:
