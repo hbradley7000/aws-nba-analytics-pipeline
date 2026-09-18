@@ -45,3 +45,33 @@ My primary contributions included:
 - **AWS IAM** — Configured IAM roles and permissions to support communication between Lambda, Glue, Athena, and S3.
 - **AWS Glue Crawlers** — Configured crawlers to scan NBA data stored in S3 and update table metadata in the AWS Glue Data Catalog.
 - **Amazon Athena** — Developed SQL queries to join and analyze NBA game and team-level datasets using the tables cataloged through AWS Glue.
+
+## Limitations & Improvements
+
+The project successfully demonstrated a serverless AWS analytics pipeline, but the original implementation had several areas that could be improved for a production environment.
+
+- **Broad IAM permissions** — Some roles used permissions that were wider than necessary. A production implementation should follow the principle of least privilege and restrict access to only the required services and resources.
+- **Lambda execution timing** — The Lambda workflow used a fixed wait period before refreshing the QuickSight dataset. A more robust implementation could check the AWS Glue crawler status before continuing.
+- **Configuration management** — AWS resource identifiers should be stored as environment variables rather than hard-coded directly in application code.
+- **Scalability and query performance** — Larger datasets could benefit from partitioning and columnar formats such as Parquet to reduce Athena scan volume and improve query performance.
+- **Pipeline automation** — Additional event-driven automation could reduce the need for manual data ingestion and make the pipeline easier to maintain.
+
+## Proposed Alternative Architecture
+
+The team also evaluated Amazon Redshift as an alternative architecture for workloads that could benefit from a persistent cloud data warehouse.
+
+A potential architecture would be:
+
+```text
+External NBA Data
+        ↓
+     Amazon S3
+        ↓
+     AWS Lambda
+        ↓
+  Amazon Redshift
+        ↓
+ Amazon QuickSight
+```
+
+Redshift could provide an alternative for workloads requiring more persistent warehouse-style analytics, higher query concurrency, or integration with additional reporting applications. The serverless S3, Glue, and Athena architecture remained appropriate for the scope of the original project.
